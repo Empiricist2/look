@@ -14,6 +14,9 @@
         #cal{
             background-color: rgb(33, 101, 144);
         }
+        body{
+            background-color: rgb(43, 222, 150);
+        }
     </style>
 </head>
 <body>
@@ -27,35 +30,58 @@
                         <h1 class="number" style="left:70px; position: relative;">The number is ??</h1>
              <button class="check"
                         style="font-size:32px; text-align: center; width: 200px; left: 100px; position: relative">check</button>
-              <h1 class="highestscore" style="width: 500px; margin:0px auto; padding: 20px">Highest Score: 0</h1>
+              <h1 class="highestscore" style="width: 500px; margin:0px auto; padding: 20px">Highest Score: 20</h1>
     
     </div>
-   <div>  
-     <h1 id="cal">Loan Calculator</h1>
-     <form>
-     Amount to borrow <br>
-     <br> $<input  type="text" id="amount" /><br />
-<br>
+    <h1>Loan Calculator</h1>
+    <label> <b>Funding Amount </b></label> <br>
+     <input id="lon" placeholder="input your amount" class="in"> <br> <br> <br>
+     <label><b>MarkUp %</b></label> <br>
 
-     Interest rate (%) <br>
-     <br> <input type="text" id="interest-rate" /><br />
-<br>
-     Duration (month) <br>
-     <br> <input type="text" id="duration" /><br />
-<br>
-     <button type="button" onclick="calculateLoan()">Calculate</button>
-     </form>
-     <div id="result"></div>
-   </div>
+     <input class="in" value="10" id="lom" onchange="cha()"> <br> <br> <br>
+     <label><b>Funding Period</b></label> <br>
+
+     <select  aria-label="Default select example" class="in" id="stee">
+      <option value="1">One Month</option>
+      <option value="2">Two Month</option>
+      <option value="3">Three Month</option>
+      <option value="4">Four Month</option>
+      <option value="5">Five Month</option>
+      <option value="6">Six Month</option>
+      <option value="7">Seven Month</option>
+      <option value="8">Eight Month</option>
+      <option value="9">Nine Month</option>
+      <option value="10">Ten Month</option>
+      <option value="11">Eleven Month</option>
+      <option value="12">Twelve Month</option>
+    </select> <br> <br>
+    <p><i style="color: rgb(0, 157, 255);;">Your markup has been assumed at <span id="mercy">10</span>%</i></p>
+    <button onclick="spiderman()">Calculate</button>
+    <p style="font-size: 30px; color: rgb(245, 33, 14);"> Your monthly repayment will be <span id="fre" style="color: rgb(0, 157, 255); font-size: 20px;">0</span> with <span id="frt"  style="color: rgb(0, 157, 255); font-size: 20px;">0</span> scheduled number of payments The total repayment on this funding will be <span id="fry"  style="color: rgb(0, 157, 255); font-size: 20px;">0</span></p>
 <script>
-    const secretNumber = Math.trunc(Math.random()*20)+1;
+    
                 const btn = document.querySelector('.check');
                 let myMessage=document.querySelector('.message');
                     
                     let theNumber=document.querySelector('.number');
 
                 let theBody= document.querySelector('body');
-
+                const secretNumber = Math.trunc(Math.random()*20)+1;
+let score=20;
+function scoreline(){
+    score = score - 4;
+    if(score == 0){
+        myMessage.innerHTML = 'Game Over';
+                            btn.innerHTML='Game Over';
+                            btn.disabled = 'disabled';
+                            btn.style.backgroundColor = 'red';
+                            btn.style.color = 'white';
+                        document.querySelector('.mynumber').value= 'please refresh the page to try again';
+                        theBody.style.color='red';
+                        theNumber.innerHTML=`The number is ${secretNumber}`;
+    }
+    
+}
                     let myEngine = function(){
                     let myGuess = Number(document.querySelector('.mynumber').value);
 
@@ -63,18 +89,18 @@
              
             myMessage.innerHTML = 'your guess must be btw 1 and 20 only';
             myMessage.style.color ='gold';
-            document.querySelector('.mynumber').value ='';
+            document.querySelector('.mynumber').value =''; scoreline();
 
         }
 else if(myGuess>secretNumber){
     myMessage.innerHTML ='your guess is too high';
     myMessage.style.color ='red';
-    document.querySelector('.mynumber').value ='';
+    document.querySelector('.mynumber').value =''; scoreline();
 }
         else if(myGuess < secretNumber) {
             myMessage.innerHTML = 'your guess is too low';
             myMessage.style.color ='blue';
-            document.querySelector('.mynumber').value ='';
+            document.querySelector('.mynumber').value ='';scoreline();
         }
 else if(myGuess==secretNumber){
     myMessage.innerHTML ='correct';
@@ -89,7 +115,8 @@ else if(myGuess==secretNumber){
                     btn.addEventListener('click', myEngine);
                     console.log(secretNumber);
 </script>
-<script>
+<!-- prime numbers -->
+<!-- <script>
 let n;
  n = prompt('enter any prime number from 1 to 70');
 
@@ -113,25 +140,169 @@ else{
             alert(`correct ${n}, is a prime number`);
         }
     }
-</script>
+</script> -->
 
 <script>
-function calculateLoan(){
-    let amount = parseFloat(document.getElementById('amount').value);
-    let interestRate=parseFloat(document.getElementById('interest-rate').value);
-    let duration = parseFloat(document.getElementById('duration').value);
-  // calculate monthly interest rate//
-    let monthlyInterestRate = interestRate / 100 / 12;
-// Calculate number of monthly payment//
- let numeberOfPayments = duration * 12;
- //calculateb monthly payment//
- let numerator = monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numeberOfPayments);
- let denominator =  Math.pow(1 + monthlyInterestRate, numeberOfPayments) - 1;
- monthlyPayment = amount * (numerator / denominator);
- // Display result//
- document.getElementById('result').innerHTML = 'Monthly Payment: $' + monthlyPayment.toFixed(2);
-}
+function spiderman(){
+       let firstMoney = Number(document.querySelector(`#lon`).value);
+       let MarkUpPercentAge = Number(document.querySelector(`#lom`).value);
+       let MonthsYear = Number(document.querySelector(`#stee`).value);
+       let Percentage = MarkUpPercentAge/100;
+       let TotalAmount = firstMoney*Percentage+firstMoney;
+       let jk= MonthsYear;
+       let Inter= TotalAmount/MonthsYear;
+        document.querySelector(`#fre`).innerHTML= `${Inter} naria`;
+        document.querySelector(`#frt`).innerHTML = `${jk}`;
+        document.querySelector(`#fry`).innerHTML = `${TotalAmount} naria`;
+       }
+       function cha(){
+        let MarkUpPercentAge = Number(document.querySelector(`#lom`).value);
+        let show = document.querySelector(`#mercy`)
+        show.innerHTML=`${MarkUpPercentAge}`
+    }
 </script>
+
+
+<div class="calculator">
+    <h1>Simple Calculator</h1>
+<input placeholder="input a number" id="input1" value="">
+
+<span id="symbol"></span>
+
+<input placeholder="input a number" id="input2">
+<br>
+
+<span id="answer"></span>
+<br>
+<button onclick="ade()">+</button><br> 
+<button onclick="sub()">-</button><br>
+<button onclick="div()">/</button><br>
+<button onclick="mul()">*</button><br>
+   </div>
+
+
+   <script>
+    let a, b, c, d, k;
+function getAnswer(){
+    if(a==""||b==""){
+        c.innerHTML = "oga you blind,fill something ode"
+        c.style.color="red";
+    }
+    else if (isNaN(a)  || isNaN(a)){
+        c.innerHTML="ode nah only number dey allowed."
+        c.style.color="red";
+    }
+    else{
+        c.innerHTML=`= ${k}`;
+        c.style.color="greeen";
+    }
+}
+    function ade(){
+        a = Number(document.getElementById('input1').value);
+        b = Number(document.getElementById('input2').value);
+        c = document.getElementById('answer');
+        d = document.getElementById('symbol');
+        k=a+b;
+        d.innerHTML = '+';
+        getAnswer()
+    };
+
+    function sub(){
+    k =a - b
+    d.innerHTML = '-'
+    getAnswer();
+    }
+
+    function div(){
+    k =a / b
+    d.innerHTML = '/'
+    getAnswer();
+    }
+
+    function mul(){
+    k =a * b
+    d.innerHTML = '*'
+    getAnswer();
+    }
+   </script>
+
 </div>
+
+
+
+    <!-- <script>
+
+  function printNumber(from,to){
+    let current = from;
+    function go(){
+        alert(current)
+        if(current==to){
+            clearInterval(timeId)
+        }
+        current++
+    }
+    go()
+    let timeId = setInterval(go,1000)
+  }
+  printNumber(10,20);
+</script>  -->
+
+        <span id="gift"></span>
+        <button onclick="victor()">Click me</button>
+        <script>
+
+        
+        function victor(){
+        let kiss = document.querySelector('#gift')
+        let oneday= new Date().getDay()
+        let days = ['Sunday', 'Monday', "Tuesday", 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+        if (oneday==0){
+          kiss.innerHTML = (` <h2>Today is ${days[oneday]} go to church </h2>`)
+        }
+        else if(oneday==5){
+          kiss.innerHTML =(` <h2>Today is ${days[oneday]} go to mosque </h2>`)
+        }
+        else if(oneday==6){
+          kiss.innerHTML =(` <h2>Today is ${days[oneday]} go to party </h2>`)
+        }
+        else(
+          kiss.innerHTML =(` <h2>Today is ${days[oneday]} go to work</h2>`)
+        )
+
+       }
+    </script> 
+
+
+
+    
+
+
+
+
+<h1 id="oro"></h1>
+<br>
+<h1 onload="xma()" id="tunde"></h1>
+<script>
+   let countdown = new Date(`december 25 2023 00:00:00`).getTime();
+function xma(){
+let now = new Date().getTime();
+let distance = countdown-now;
+let days = Math.floor(distance/(24*60*60*1000));
+let hours =  Math.floor(distance%(24*60*60*1000)/(60*60*1000));
+let minutes =  Math.floor(distance%(60*60*1000)/(60*1000));
+let seconds =  Math.floor(distance%(60*1000)/(1000));
+if(days==0){
+   clearInterval(remi);
+   document.querySelector(`#oro`).innerHTML=`HAPPY NEW YEAR`;
+   document.querySelector(`body`).style.backgroundColor=`green`
+}
+document.querySelector(`#tunde`).innerHTML=`${days}D : ${hours}H : ${minutes}M : ${seconds}S`
+}
+xma()
+let remi = setInterval(xma,1000)
+</script>
+
+
+ 
 </body>
 </html>
